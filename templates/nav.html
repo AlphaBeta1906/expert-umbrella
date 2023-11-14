@@ -1,0 +1,25 @@
+<nav>
+    <ul>
+      <li>
+        <h5>
+          <a href="/">Logo</a>
+        </h5>
+      </li>
+    </ul>
+    <ul>
+        {% if user.is_authenticated  %}
+          <li>{% include "components/profile.html" %}</li>
+          <li></li>
+        {% else %}
+          <li>
+            <a role="button" class="contrast" x-on:click="theme = !theme;localStorage.setItem('theme', theme)">
+              <i x-show="theme" data-feather="moon"></i>
+              <i x-show="!theme" data-feather="sun"></i>
+              {% comment %} <i x-bind:class="theme?'fa-solid fa-moon':'fa-solid fa-sun'"></i> {% endcomment %}
+            </a>
+          </li>
+          <li><a role="button" href="{% url 'user:signup' %}" class="secondary">Signup</a></li>
+          <li><a role="button" href="{% url 'user:login' %}" class="primary">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>

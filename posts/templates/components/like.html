@@ -1,0 +1,17 @@
+{% if user.is_authenticated %}
+    <span style="cursor: pointer;" x-data="{like: {% if user in post.likes.all %}true{% else %}false{% endif %},count:  {{post.likes.all|length}} }" x-on:click="like = !like;count += like?1:-1;like_post({{post.id}},'{{post.title|slugify}}')" title="like post">
+        <span x-bind:style="like? 'color:#e68e9e': '' ">
+            <i data-feather="heart"></i>
+        </span>
+        <span x-text="count"></span>
+    </span>
+{% else %}
+    <span style="cursor: pointer;" x-data="" title="like post">
+        <i class="fa-regular fa-heart" x-on:click="window.location.href = '{% url 'user:login' %}'"></i>
+        {{post.likes.all|length}}
+    </span>
+{% endif %}
+<a href="{% url 'post:comments' post.id post.title|slugify  %}" style="padding-left: 1rem;" title="comment">
+    <i data-feather="message-circle"></i>
+    {{post.comment_count}}
+</a>

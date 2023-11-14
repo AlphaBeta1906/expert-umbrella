@@ -1,0 +1,11 @@
+<section>
+    {% if not tag and not is_group or not group %}
+        <div>
+            <a href="{% url 'post:index' %}" role="{% if not groups and not tags%}button{% endif %}">Post</a>
+            |
+            <a href="{% url 'post:group' %}" role="{% if groups %}button{% endif %}">Post group</a>
+            |
+            <a href="{% url 'post:tagindex' %}" role="{% if tags %}button{% endif %}">Tags</a>
+        </div>
+    {% endif %}
+</section>

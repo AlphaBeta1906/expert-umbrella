@@ -1,0 +1,48 @@
+{% load gravatar %}
+    <details class="dropdown">
+      <summary>
+        {% gravatar user.email 35 %}
+        {{request.user}}
+      </summary>
+      <ul>
+        <li>
+            <a href="{% url 'user:profile' user.username %}">
+              <i data-feather="user" style="color: #3465a4;"></i>
+              Profile
+            </a>
+        </li>
+        <li>
+          <a style="cursor: pointer" x-on:click="theme = !theme;localStorage.setItem('main_theme', theme)">
+            <i x-show="theme" data-feather="moon"></i>
+            <i x-show="!theme" data-feather="sun"></i>
+            {% comment %} <i x-bind:class="theme?'fa-solid fa-moon':'fa-solid fa-sun'"></i> {% endcomment %}
+            <span x-text="theme? 'Dark theme': 'Light theme' " ></span>
+          </a>
+        </li> 
+        <li>
+          <a href="{% url 'post:create' %}">
+            <i data-feather="edit-2" style="color: #3465a4;"></i>
+            Write post
+          </a>
+        </li>
+        {% comment %} <li>
+          <a href="#">
+            <i data-feather="bell"></i>
+            Notification
+          </a>
+        </li> {% endcomment %}
+        <li>
+          <a href="{% url 'user:logout' %}">
+            <i data-feather="log-out" style="color: #ef2929;"></i>
+            Logout
+          </a>
+        </li>
+        {% if user.is_staff %}
+          <li>
+            <a href="{% url 'admin:index' %}">
+              Admin dashboard
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </details>

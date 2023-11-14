@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+<main class="container">
+    <article class="grid">
+      <div>
+        <hgroup>
+          <h1>Login</h1>
+          <h2>Enter to your account</h2>
+        </hgroup>
+        <form  action="" method="post">
+          {% include "components/error.html" %}
+
+          {% csrf_token %}
+          {% with error=form.username.errors|yesno:"true," %}
+            {% render_field form.username placeholder="Username" aria-invalid=error %}
+            <small>{{form.username.help_text}} </small>
+            <small>{{form.username.errors}}</small>
+          {% endwith %}
+          {% with error=form.password.errors|yesno:"true," %}
+            {% render_field form.password placeholder="Password" %}
+            <small>{{form.password.errors}}</small>
+          {% endwith %}
+
+          {% with error=form.password.errors|yesno:"true," %}
+            {% render_field form.captcha placeholder="Enter letter from image above" %}
+            <small>{{form.captcha.errors}}</small>
+          {% endwith %}
+
+          <fieldset>
+            <label for="remember">
+              <input type="checkbox" role="switch" id="remember" name="remember" />
+              Remember me
+            </label>
+          </fieldset>
+          <p>Dont have an account yet? <a href="{% url 'user:signup' %}"> Signup</a></p>
+          <p>
+            <a href="{% url 'user:password_reset' %}">Recover my password</a>
+          </p>
+          <button type="submit" class="contrast" name="submit">Login</button>
+        </form>
+      </div>
+      <div class="img">
+        <img src="https://picsum.photos/500" alt="" style="height: 100%;width: 100%;">
+      </div>
+    </article>
+{% endblock content %}

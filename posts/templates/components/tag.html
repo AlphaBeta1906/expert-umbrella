@@ -1,0 +1,7 @@
+<p style="padding-top: 1rem;padding-bottom: 1rem;">
+    {% for tag in post.tag.all  %} 
+        <a  class="tag {{tag.css_class}}" href="{% url 'post:tag' tag.name %}">#{{tag}}</a> 
+    {% empty %} 
+        Untagged 
+    {% endfor %}
+</p>

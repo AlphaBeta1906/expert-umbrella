@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<h3>Add new group</h3>
+<article>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% include "components/error.html" %}
+        
+        {% include "components/forms.html" %}
+
+        {% comment %} {% if form.posts %}
+            <label for="{{form.posts.name}} ">{{form.posts.label}}</label>
+            {% render_field form.posts placeholder="Group description" %}
+            <small>Use ctrl+mouse click to select multiple posts </small>
+        {% endif %} {% endcomment %}
+        <button type="submit">{{edit|yesno:"Edit,Create"}} group</button>
+    </form>
+</article>
+{% endblock content %}

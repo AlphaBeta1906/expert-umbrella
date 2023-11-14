@@ -1,0 +1,30 @@
+<nav style="padding-top: 0rem;padding-bottom: 0rem;" x-data="{open: false}" x-bind:class="open? 'modal-is-open modal-is-opening':'modal-is-closing'">
+    <ul>
+    </ul>
+    <ul>
+        <li>    
+            <details class="dropdown">
+                <summary>
+                    ...
+                </summary>
+                <ul dir="rtl">
+                    {% if user == group.owner %}
+                        <li>
+                            <a style="cursor: pointer;" x-on:click="open = !open">
+                                Delete
+                                <i data-feather="trash" style="color: #cc0000;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'post:groupedit' group.id group.title|slugify %}">
+                                Edit
+                                <i data-feather="edit-2" style="color: #3465a4;"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </details>
+        </li>
+    </ul>
+    {% include "components/group_delete_modal.html" %}
+  </nav>

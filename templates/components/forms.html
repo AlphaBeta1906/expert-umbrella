@@ -1,0 +1,6 @@
+{% load widget_tweaks %}
+{% for field in form  %}
+    <label for="{{field.name}}">{{field.label}} </label>
+    {% render_field field %}
+    <small>{{field.help_text}} </small>
+{% endfor %}

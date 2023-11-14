@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<center>    
+    {% if is_ban %}
+        <h3>Your account were banned from this website until {{ban.timestamp}} UTC </h3>
+        <p>Reason: {{ban.get_ban_category_display}} </p>
+        <p>{{ban.description}} </p>
+        <a href="{% url 'user:logout' %}" role="button">Logout</a>
+        <br>
+        <br>
+        {% comment %} <p>Or</p>
+        <a href="">File a ban appeal</a> {% endcomment %}
+    {% else %}
+        <h3>Your account hasn't yet to be confirmed, please wait admin to confirm your account first</h3>
+    {% endif %}
+</center>
+{% endblock content %}

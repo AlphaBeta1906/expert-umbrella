@@ -1,0 +1,33 @@
+{% load extras %}
+
+<article style="padding-top:1rem;padding-top:1rem">
+    {% if user == group.owner %}
+        {% include "components/group_card_dropdown.html" %}
+    {% endif %}
+    <h1>
+        <a href="{% url 'post:grouppost' group.id group.title|slugify %}">{{group.title|title}}</a>
+    </h1>
+    <main>
+        there {{group.post_count|pluralize:"is,are"}} {{group.post_count}} post{{group.post_count|pluralize:"s"}} in this group 
+        {% if user == group.owner %}
+            <i>
+                and {% get_draft_post group user %} post(s) are draft post
+            </i>
+        {% endif %}
+    </main>
+    <footer>
+        A post group by
+        <span class="" x-data="{follow: {% if user in group.followers.all %}true {% else %} false {% endif %},count:  {{group.followers.all|length}}}">
+            <a href="{% url 'user:profile' group.owner.username %}">
+                {{group.owner.username}}
+            </a>
+            <br>
+            <span x-text="count"></span> Follower
+            {% if user != group.owner %}
+                <a x-on:click="follow = !follow;count += follow?1:-1;follow_group({{group.id}});" style="cursor: pointer;">
+                    + <span x-text="follow? 'Unfollow':'Follow' "></span> Group
+                </a>
+            {% endif %}
+        </span> 
+    </footer>
+</article>

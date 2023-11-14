@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+    <style>
+        form{
+            margin-top: 1.5rem;
+        }
+        textarea{
+            max-height: 150px;
+        }
+        .comments{
+            min-height: 250px;
+            max-height: 350px;
+            overflow-y: scroll;
+        }
+    </style>
+    <article>
+        <header>
+            <hgroup>
+                <h1>Comment for {{post.title|title}} </h1>
+                <h2>{{comments_count}} comments </h2>
+            </hgroup>
+        </header>
+        <div class="comments">
+            {% for comment in comments  %}
+                {% include "components/user_comment.html" %}
+            {% empty %}
+                <center>
+                    <h2>No comments</h2>
+                </center>
+            {% endfor %}
+        </div>
+        {% if user.is_authenticated and user.account_confirmed %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <label for="{{form.content.name}}">{{form.content.label}} </label>
+                {% render_field form.content placeholder="Your comment" %}
+                <button>Comment</button>
+            </form>
+        {% endif %}
+    </article>
+{% endblock content %}

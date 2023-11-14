@@ -1,0 +1,10 @@
+[
+    {
+      "model": "users.Role",
+      "pk": 1,
+      "fields": {
+        "role_name": "Superuser",
+        "description": ""
+      }
+    }
+  ]

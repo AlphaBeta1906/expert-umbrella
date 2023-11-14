@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<main class="container">
+    <article class="grid">
+      <div>
+        <hgroup>
+          <h1>Signup</h1>
+          <h2>Create account</h2>
+        </hgroup>
+        <form  action="" method="post">
+          
+          {% include "components/error.html" %}
+          
+          {% csrf_token %}
+          {% render_field form.username placeholder="Username" %}
+          <small>{{form.username.help_text}} </small>
+
+          {% render_field form.password1 placeholder="Password" %}
+          <small>{{form.password1.help_text}} </small>
+
+          {% render_field form.password2 placeholder="Repeat password" %}
+          <small>{{form.password2.help_text}} </small>
+
+          {% render_field form.email placeholder="Email" %}
+          <small>{{form.email.help_text}} </small>
+
+          {% with error=form.password.errors|yesno:"true," %}
+          {% render_field form.captcha placeholder="Enter letter from image above" %}
+          <small>{{form.captcha.errors}}</small>
+          {% endwith %}
+          
+          <fieldset>
+            <label for="remember">
+              <input type="checkbox" role="switch" id="remember" name="remember" />
+              Remember me
+            </label>
+          </fieldset>
+          <p>Already have an account? <a href="{% url 'user:login' %}"> Login</a></p>
+          <button type="submit" class="contrast" name="submit">Signup</button>
+        </form>
+      </div>
+      <div class="img">
+        <img src="https://picsum.photos/500" alt="" style="height: 100%;width: 100%;">
+      </div>
+    </article>
+{% endblock content %}

@@ -1,0 +1,29 @@
+<center>
+    <h1>Post group by {{get_user.get_username}} </h1>
+</center>
+{% if user == get_user %}
+<a href="{% url 'post:groupcreate' %}" role="button" style="margin-bottom: 1rem;">
+    <i data-feather="edit-2"></i>
+    Add post group 
+</a>
+{% endif %}
+<section>
+    {% for group in groups  %}
+        <div x-data="{open: false}" class="" x-bind:class="open? 'modal-is-open modal-is-opening':'modal-is-closing'">
+            {% include "components/group_card.html" %}
+        </div>
+    {% empty %}
+        <center>
+            {% if get_user == user  %}
+                <h1>
+                    No group
+                </h1>
+                <a href=" {% url 'post:group' %} ">Add new group</a>
+            {% else %}
+                <h1>
+                    No group from {{get_user}}
+                </h1>
+            {% endif %}
+        </center>
+    {% endfor %}
+</section>

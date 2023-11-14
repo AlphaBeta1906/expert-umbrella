@@ -1,0 +1,16 @@
+{% load gravatar %}
+<section>
+    <p>
+        {% gravatar comment.author.email 35 %}
+        <a href="{% url 'user:profile' comment.author.username %}">{{comment.author.username}}</a>
+    </p>
+    <p>
+        {{comment.content}}
+    </p>
+    {% comment %} <small>at {% now "Y-m-d H:i" %} </small> {% endcomment %}
+    <small>At {{comment.date_created|date:"j M Y"}} </small>
+    <p>
+        <a href="{% url 'post:reportcomment' comment.id %}?post_id={{post.id}}&post_title={{post.title|slugify}}" title="report post"><i data-feather="flag"></i></a>
+    </p>
+    <hr>
+</section>

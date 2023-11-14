@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+    {% if tag %}
+        <hgroup>
+            <h1>Tag: {{tag.name|title}} </h1>
+            <p>{{tag.description}} </p>
+        </hgroup>
+    {% elif group and is_posts %}
+        <hgroup>
+            <h1>{{group.title|title}} </h1>
+            <p>{{group.description}} </p>
+        </hgroup>
+    {% else %}
+        {% comment %} <h1>Hello world</h1> {% endcomment %}
+        {% if posts %}
+            <hgroup>
+                <h1>Posts</h1>
+                <p>Subtitle</p>
+            </hgroup>
+        {% endif %}
+        {% if groups %}
+            <hgroup>
+                <h1>Post groups</h1>
+                <p>Subtitle</p>
+            </hgroup>
+        {% endif %}
+    {% endif %}
+    {% if form %}
+        <section>
+            <form action="" role="group">
+                {% render_field form.title placeholder=search_placeholder %}
+                <button>Search</button>
+            </form>
+        </section>
+    {% endif %}
+    {% if not tag and not is_group or not group %}
+        {% include "components/select_page.html" %}
+    {% endif %}
+    <section>
+        {% if is_posts %}
+            {% comment %} <div>
+                <a href="" {% if sort_liked %}{% endif %}>Most liked</a>
+                <a href="" {% if updated %}{% endif %}>Latest updated</a>
+                <a href="" {% if publsihed  %}{% endif %}>Latest published</a>
+            </div> {% endcomment %}
+            {% for post in posts  %}
+                <div class="">
+                    {% include "components/post_card.html" %}
+                </div>
+            {% empty %}
+                <center style="margin-bottom: 5rem;">
+                    <h1>
+                        No post
+                    </h1>
+                </center>
+            {% endfor %}
+        {% endif %}
+        {% if is_group %}
+            {% for group in groups  %}
+                <div class="">
+                    {% include "components/group_card.html" %}
+                </div>
+            {% empty %}
+                <center style="margin-bottom: 5rem;">
+                    <h1>
+                        No post group
+                    </h1>
+                </center>
+            {% endfor %}
+        {% endif %}
+        {% include "components/paginate.html" %}
+    </section>
+{% endblock content %}

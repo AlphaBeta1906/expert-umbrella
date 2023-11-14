@@ -1,0 +1,22 @@
+<dialog x-bind:open="open" @keypress="console.log($event)">
+    <article>
+      <header>
+        <Link  style="cursor: pointer;" aria-label="Close" x-on:click="open = !open" x-transition x-cloak class="close" />
+        <p>
+          {% comment %} <strong>🗓️ Thank You for Registering!</strong> {% endcomment %}
+        </p>
+      </header>
+      <h5>Are you sure to delete this post ({{post}}) ? </h5>
+      {% comment %} <p>
+        We're excited to have you join us for our
+        upcoming event. Please arrive at the museum 
+        on time to check in and get started.
+      </p>
+      <ul>
+        <li>Date: Saturday, April 15</li>
+        <li>Time: 10:00am - 12:00pm</li>
+      </ul> {% endcomment %}
+      <a role="button" href="{% url 'post:delete' post.id post.title|slugify %}" class="primary">Yes</a>
+      <button class="secondary">Cancel</button>
+    </article>
+</dialog>

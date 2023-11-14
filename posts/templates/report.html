@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+    <article>
+        {% if comment %}
+            <h5>Reporting a comment by <a href="{% url 'user:profile' comment.author.username  %}">{{comment.author.username}}</a> </h5>
+        {% else %}
+            <h5>Reporting {{post}} by <a href="{% url 'user:profile' post.author.username  %}">{{post.author.username}}</a> </h5>
+        {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {% include "components/error.html" %}
+        
+            {% include "components/forms.html" %}
+            {% if comment  %}
+            <button type="submit">Report comment</button>
+            {% else %}
+            <button type="submit">Report post</button>
+            {% endif %}
+        </form>
+    </article>
+{% endblock content %}

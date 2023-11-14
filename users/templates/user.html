@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load gravatar %}
+{% block content %}
+    <article>
+        <section>
+            <a href="{% gravatar_profile_url user.email %}">
+                {% gravatar get_user.email 150  %}
+            </a>
+            <main style="padding-top: 2rem">
+                <hgroup>
+                    <h1>{{get_user.get_username}}</h1>
+                    {% if get_user.show_email %}
+                        <p>{{get_user.email|urlize}}</p>
+                    {% endif %}
+                    <small>{{get_user.groups|default_if_none:""}} </small>
+                </hgroup>
+                <section style="margin-top: 1.5rem;">
+                    {{get_user.profile|default_if_none:"-"|safe}}
+                </section>
+                {% if user == get_user %}
+                    <a href="{% url 'user:edit' user.username %}" role="button" class="primary">Edit profile</a>
+                    <a href="{% url 'user:password_change' %}" role="button" class="contrast">Change password</a>
+                {% endif %}
+            </main>
+        </section>
+    </article>
+    <section>
+        <a href="{% url 'user:profile' get_user.username %}" {% if not is_group and not liked_post %}role="button"{% endif %}>Posts</a>
+        |
+        <a href="{% url 'user:profile' get_user.username %}?is_group=true" {% if is_group %}role="button"{% endif %}>Post group</a>
+        {% if get_user.show_liked_post or get_user == user %}
+            |
+            <a href="{% url 'user:profile' get_user.username %}?liked_post=true" {% if liked_post %}role="button"{% endif %}>Liked post</a>
+        {% endif %}
+    </section>
+    {% if is_group %}
+        {% include "components/user_group_post.html" %}
+    {% elif liked_post %}
+    {% include "components/user_liked_post.html" %}
+    {% else %}
+        {% include "components/user_post.html" %}
+    {% endif %}
+    {% include "components/paginate.html" %}
+{% endblock content %}

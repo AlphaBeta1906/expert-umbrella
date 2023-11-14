@@ -1,0 +1,21 @@
+.tag{
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 0rem;
+    border-radius: 0.5rem;
+}
+
+.tag_blue_100{
+    background-color: #3c71f73e;
+    color: #8999F9;
+}
+
+.tag_blue_150{
+    background-color: #2060df71;
+    color: #4958e2;
+}
+
+.tag_green_100{
+    background-color: #4eb31b34;
+    color: #77EF3D;
+}

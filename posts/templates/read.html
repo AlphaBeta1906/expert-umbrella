@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block meta %}
+<meta name="og:title" content="{{post.title|title}}">
+<meta name="og:type" content="article">
+<meta name="og:url" content="https://{{request.get_host}}{{request.get_full_path}}">
+<meta name="og:image" content="{{post.image_url}}">
+<meta name="og:description" content="{{post.summary}}">
+<meta name="og:article:author" content="{{post.author.username}}">
+<meta name="og:article:publish_date" content="{{post.date_published}}">
+<meta name="og:article:tag" content="{{post.tag.all|join:","}}">
+<meta name="description" content="{{post.summary}}">
+{% endblock meta %}
+{% block content %}
+<section>
+    <article>
+        {% if user.is_authenticated %}
+            {% include "components/post_card_dropdown.html" %}
+        {% endif %}
+        <hgroup>
+            <center>
+                <h1>{{post.title|title}}</h1>
+                <p>By <a href="{% url 'user:profile' post.author.username %}">{{post.author.username}}</a> at {{post.date_published|date:"j M Y"}}</p>
+                {% if post.cover_image %}
+                    <img src="{{post.cover_image}} " alt="{{post.title}} cover image " style="width: 100%;height: 350px;" >
+                {% endif %}
+            </center>
+            {% if post.is_draft %}
+                <small style="padding-bottom: 1.5rem;">Draft post</small>
+            {% endif %}
+            {% if post.is_nsfw %}
+                <small style="display: block;"><i class="fa-solid fa-triangle-exclamation" style="color: #cc0000;"></i>Nsfw post</small>
+            {% endif %}
+            <br>
+        </hgroup>
+        <hr>
+        <main style="margin-top: 2rem;margin-bottom: 15rem;">
+            {{post.content|safe}}
+        </main>
+        <footer>
+            {% include "components/tag.html" %}
+            {% include "components/like.html" %}
+            <hr>
+            <nav style="padding-bottom: 0rem;">
+                <ul>
+                    <a href="{% if previous_post %}{% url 'post:read' previous_post.id previous_post.title|slugify %}{% endif %}" {{previous_post|yesno:",disabled"}} class="{{previous_post|yesno:",secondary"}}" title="{{previous_post.is_draft|yesno:"previous post is a draft post,"}}">&laquo;Previous post</a>
+                </ul>
+                <ul>
+                    <a href="{% if next_post %}{% url 'post:read' next_post.id next_post.title|slugify %}{% endif %}" {{next_post|yesno:",disabled"}}  class="{{next_post|yesno:",secondary"}}" title="{{next_post.is_draft|yesno:"next post is a draft post,"}}" >Next post&raquo;</a>
+                </ul>
+            </nav>
+        </footer>
+    </article>
+</section>
+<section>
+    <div class="grid">
+        {% if group %}
+            <article>
+                <header>
+                    <h2>Other post from group <a href="{% url 'post:grouppost' group.id group.title|slugify %} ">{{group.title|title}} </a> </h2>
+                </header>
+                <main>
+                    {% for post_in_group in group_post  %}
+                        {% if post_in_group != post  %}
+                            <h3>
+                                <a href="{% url 'post:read' post_in_group.id  post_in_group.title|slugify %}">{{post_in_group.title|title}} </a>
+                            </h3>
+                            {% if post_in_group.is_nsfw %}
+                                <small style="display: block;"><i class="fa-solid fa-triangle-exclamation" style="color: #cc0000;"></i>Nsfw post</small>
+                            {% endif %}
+                            <small>{{post_in_group.is_draft|yesno:"draft post,"}} </small>
+                            {% include "components/tag.html" %}
+                            <small>Publish at  {{post_in_group.date_published|date:"j M Y"}} </small>
+                            <div style="padding-top: 1.5rem">
+                                {% include "components/like.html" with post=post_in_group  %}
+                            </div>
+                            <hr>
+                        {% endif %}
+                    {% empty %}
+                        <center>
+                            <h1>No post</h1>
+                        </center>
+                    {% endfor %}
+                </main>
+            </article>
+        {% endif %}
+        {% comment %} <article>
+            <header> 
+                <h2>Other posts from {{post.author.username}}</h2>
+            </header>
+        </article> {% endcomment %}
+    </div>
+</section>
+{% endblock content %}

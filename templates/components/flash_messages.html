@@ -1,0 +1,38 @@
+<style>
+    .alert {
+        padding: 20px;
+        background-color: #0eb036; /* Red */
+        color: white;
+        margin-bottom: 15px;
+      }
+      
+      /* The close button */
+      .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      /* When moving the mouse over the close button */
+      .closebtn:hover {
+        color: black;
+      }
+      .alert p{
+        margin-bottom: 0rem;
+      }
+</style>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert" x-data="{open: true}" x-show="open" x-transition> 
+      <span class="closebtn" x-on:click="open = !open">&times;</span> 
+      <p>{{message}}</p>
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}

@@ -1,0 +1,22 @@
+<center>
+    <h1>Liked post </h1>
+</center>
+<section>
+    {% for post in posts  %}
+        <div x-data="{open: false}" class="" x-bind:class="open? 'modal-is-open modal-is-opening':'modal-is-closing'">
+            {% include "components/post_card.html" %}
+        </div>
+    {% empty %}
+        <center>
+            {% if get_user == user  %}
+                <h1>
+                    You haven't like a post yet
+                </h1>
+            {% else %}
+                <h1>
+                    {{get_user}} haven't like a post yet
+                </h1>
+            {% endif %}
+        </center>
+    {% endfor %}
+</section>

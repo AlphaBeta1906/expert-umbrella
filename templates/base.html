@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" x-data="{theme: localStorage.getItem('main_theme') == 'true' }" x-bind:data-theme="theme? 'light':'dark'" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}{% endblock meta %}
+    {% comment %} <link rel="stylesheet" href="{% static 'pico.css' %}"/> {% endcomment %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"/>
+    {% comment %} <script src="{% static 'marked.js' %}"></script> {% endcomment %}
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> {% endcomment %}
+    <title>{{title|title}} {% block title %}{% endblock title %} </title>
+    {% comment %} <script src="{% static 'alpine.js' %}" defer></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> 
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.1/dist/cdn.min.js"></script>
+    {% block jquery %}{% endblock jquery %}
+    <link rel="stylesheet" href="{% static 'custom.css' %}"/>
+    <link rel="stylesheet" href="{% static 'tag.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap" rel="stylesheet"> 
+</head>
+<body class="container">
+    {% comment %} x-data="{theme: localStorage.getItem('theme') == 'true' }" x-bind:data-theme="theme? 'light':'dark'" {% endcomment %}
+    {% include "nav.html" %}
+    <div style="margin: 1rem;">
+        {% include "components/flash_messages.html" %}
+    </div>
+    {% block content %}
+    {% endblock content %}
+    <script>
+        feather.replace();
+
+        function like_post(id,slug){
+            fetch(`/post/like/${id}/${slug}`,
+                    {
+                        method: 'POST',
+                        body: {} ,
+                        credentials: 'same-origin',
+                        headers: {
+                            'X-CSRFToken': '{{csrf_token}}'
+                        }
+                    })
+        }
+        
+        function follow_group(id){
+            fetch(`/group/follow/${id}`,
+            {
+                method: 'POST',
+                body: {} ,
+                credentials: 'same-origin',
+                headers: {
+                    'X-CSRFToken': '{{csrf_token}}'
+                }
+            })
+        }
+      </script>
+    <footer>
+        <hr>
+        <center>
+            <p>footer</p>
+            <a href="{% url 'about' %}">About</a>
+            |
+            <a href="#">Privacy policy</a>
+            |
+            <a href="{% url 'license' %}">License</a>
+        </center>
+    </footer>
+</body>
+</html>
