@@ -186,6 +186,20 @@ files = [
 django = "*"
 
 [[package]]
+name = "django-colorfield"
+version = "0.10.1"
+description = "color field for django models with a nice color-picker in the admin."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-colorfield-0.10.1.tar.gz", hash = "sha256:1e862bef9e73308499f366ab61190554fba366aa54d5fb1eba378ed2a04bc93d"},
+    {file = "django_colorfield-0.10.1-py3-none-any.whl", hash = "sha256:00ceb5ef55338a0af131c87a13eca3533a327a6206e02a6c2723c059bcd65ea5"},
+]
+
+[package.dependencies]
+Pillow = ">=9.0.0"
+
+[[package]]
 name = "django-compressor"
 version = "4.4"
 description = "('Compresses linked and inline JavaScript or CSS into single cached files.',)"
@@ -849,4 +863,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "348df997678dc06ba92676e48b2fa050f9bbb6edac5c231f5d7f1a469d232801"
+content-hash = "1f77d7b0e79080193a9c1e1158deb4f466a8352f04d30db49bc2bf07a8ae2b37"
