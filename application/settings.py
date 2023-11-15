@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = getenv("SECRET_KEYS")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
-DEBUG = getenv("DEBUG") == "True"
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -102,7 +102,7 @@ INSTALLED_APPS = [
     "django_select2",
     "compressor",
     "captcha",
-    "debug_toolbar",
+    "colorfield",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -140,7 +140,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -183,25 +182,28 @@ GRAVATAR_DEFAULT_RATING = "g"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        "TEST": {
-            "NAME": BASE_DIR / "testing.sqlite3",
-        },
-    },
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": getenv("DBASE_NAME"),
+        "USER": getenv("DBASE_USERNAME"),
+        "PASSWORD": getenv("DBASE_PASSWORD"),
+        "HOST": "localhost",
+        "PORT": "3306",
+    }
 }
 
-if not DEBUG:
+
+if DEBUG:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": getenv("DBASE_NAME"),
-            "USER": getenv("DBASE_USERNAME"),
-            "PASSWORD": getenv("DBASE_PASSWORD"),
-            "HOST": "localhost",
-            "PORT": "3306",
-        }
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+            "TEST": {
+                "NAME": BASE_DIR / "testing.sqlite3",
+            },
+        },
     }
+    INSTALLED_APPS += "debug_toolbar",
+    MIDDLEWARE += "debug_toolbar.middleware.DebugToolbarMiddleware",
 
 
 # Password validation

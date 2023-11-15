@@ -59,7 +59,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ("name", "description", "css_class")
+    list_display = ("name", "description", "background_color")
 
 
 class GroupPostAdmin(admin.ModelAdmin):

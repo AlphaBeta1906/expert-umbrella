@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from colorfield.fields import ColorField
 
 # Create your models here.
 
@@ -15,7 +16,7 @@ def get_class():
 class Tag(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True)
     description = models.TextField(max_length=150)
-    css_class = models.CharField(max_length=50, null=True, choices=get_class())
+    background_color = ColorField(default="#0088ffd0")
 
     def __str__(self):
         return self.name
