@@ -3,7 +3,7 @@
     {% include "components/select_page.html" %}
     {% for tag in tags  %} 
         <span style="padding-top: 1rem;padding-bottom: 1rem;">
-            <a  class="tag {{tag.css_class}}" href="{% url 'post:tag' tag.name %}">#{{tag}}({{tag.post_count}})</a> 
+            <a  class="tag" style="background-color: {{tag.background_color}}" href="{% url 'post:tag' tag.name %}">#{{tag}}</a> 
         </span>
     {% endfor %}
 {% endblock content %}
