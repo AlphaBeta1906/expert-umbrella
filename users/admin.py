@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User,UserBan
+from .models import User,UserBan,LoginImage
 
 # Register your models here.
 
@@ -33,6 +33,10 @@ class UserBanAdmin(admin.ModelAdmin):
     
     def has_change_permission(self, request, obj=None):
         return False
+    
+class LoginImageAdmin(admin.ModelAdmin):
+    list_display = ("id","image_url","creator")
 
 admin.site.register(User, UserAdmin)
 admin.site.register(UserBan,UserBanAdmin)
+admin.site.register(LoginImage,LoginImageAdmin)

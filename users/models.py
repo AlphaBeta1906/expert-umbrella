@@ -37,7 +37,7 @@ class User(AbstractUser):
     allow_nsfw = models.BooleanField(
         default=False, verbose_name="Allow nsfw posts"
     )
-    account_confirmed = models.BooleanField(default=False)
+    account_confirmed = models.BooleanField(default=False,help_text="confirm user account")
     show_email = models.BooleanField(default=True)
 
     class Meta:
@@ -97,3 +97,7 @@ class UserBan(models.Model):
     
     def __str__(self):
         return f"{self.user} ban"
+    
+class LoginImage(models.Model):
+    image_url = models.URLField(help_text="twitter url to an image",null=False,blank=False)
+    creator = models.CharField(max_length=50, null=False, blank=False)
