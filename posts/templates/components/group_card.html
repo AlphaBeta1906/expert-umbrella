@@ -23,11 +23,11 @@
             </a>
             <br>
             <span x-text="count"></span> Follower
-            {% if user != group.owner %}
+            {% comment %} {% if user != group.owner %}
                 <a x-on:click="follow = !follow;count += follow?1:-1;follow_group({{group.id}});" style="cursor: pointer;">
                     + <span x-text="follow? 'Unfollow':'Follow' "></span> Group
                 </a>
-            {% endif %}
+            {% endif %} {% endcomment %}
         </span> 
     </footer>
 </article>
