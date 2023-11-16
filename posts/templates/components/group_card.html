@@ -5,7 +5,7 @@
         {% include "components/group_card_dropdown.html" %}
     {% endif %}
     <h1>
-        <a href="{% url 'post:grouppost' group.id group.title|slugify %}">{{group.title|title}}</a>
+        <a class="card_title" href="{% url 'post:grouppost' group.id group.title|slugify %}">{{group.title|title}}</a>
     </h1>
     <main>
         there {{group.post_count|pluralize:"is,are"}} {{group.post_count}} post{{group.post_count|pluralize:"s"}} in this group 

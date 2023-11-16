@@ -6,7 +6,25 @@
     --pico-dropdown-background-color: #252427;
 } */
 
+.card_title{
+    color: #2a3140;
+}
 
+.card_title:hover{
+    color: #0172ad;
+}
+
+[data-theme="dark"] .card_title{
+    color: #2a3140;
+}
+
+[data-theme="dark"] .card_title{
+    color: #f0f1f3;
+}
+
+[data-theme="dark"]  .card_title:hover{
+    color: #0172ad;
+}
 
 [data-theme="dark"] .note-toolbar{
     background-color: #181c25;
