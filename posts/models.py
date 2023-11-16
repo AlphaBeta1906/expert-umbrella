@@ -73,7 +73,7 @@ class Post(models.Model):
     is_complete = models.BooleanField(
         default=False, verbose_name="Set your post as complete"
     )
-    cover_image = models.CharField(max_length=1500, null=True, blank=True)
+    cover_image = models.URLField(null=True, blank=True)
     likes = models.ManyToManyField(
         User, null=True, related_name="user_likes_set"
     )
