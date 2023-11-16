@@ -186,7 +186,7 @@ DATABASES = {
         "NAME": getenv("DBASE_NAME"),
         "USER": getenv("DBASE_USERNAME"),
         "PASSWORD": getenv("DBASE_PASSWORD"),
-        "HOST": "localhost",
+        "HOST": getenv("DBASE_HOST"),
         "PORT": "3306",
     }
 }
