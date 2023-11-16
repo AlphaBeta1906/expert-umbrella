@@ -12,7 +12,7 @@
                     {% if get_user.show_email %}
                         <p>{{get_user.email|urlize}}</p>
                     {% endif %}
-                    <small>{{get_user.groups|default_if_none:""}} </small>
+                    <small>{{get_user.groups|default_if_none:""|title}} </small>
                 </hgroup>
                 <section style="margin-top: 1.5rem;">
                     {{get_user.profile|default_if_none:"-"|safe}}
