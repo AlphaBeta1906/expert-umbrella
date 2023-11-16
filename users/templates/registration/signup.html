@@ -41,7 +41,9 @@
         </form>
       </div>
       <div class="img">
-        <img src="https://picsum.photos/500" alt="" style="height: 100%;width: 100%;">
+        {% get_login_image  as login_image %}
+        <small>- {{login_image.creator}} </small>
+        <img src="{{login_image.image_url}}  " alt="" style="height: 100%;width: 100%;">
       </div>
     </article>
 {% endblock content %}
