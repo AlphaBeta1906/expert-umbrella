@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = getenv("SECRET_KEYS")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
-DEBUG = True
+DEBUG = str(getenv("DEBUG")) == "True"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -120,10 +120,10 @@ CAPTCHA_IMAGE_SIZE = (250,75)
 CAPTCHA_LENGTH = 8
 
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     # other finders..
-    'compressor.finders.CompressorFinder',
+    "compressor.finders.CompressorFinder",
 )
 
 
