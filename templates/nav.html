@@ -2,7 +2,9 @@
     <ul>
       <li>
         <h5>
-          <a href="/">Logo</a>
+          <a href="/">
+            Logo
+          </a>
         </h5>
       </li>
     </ul>
@@ -12,7 +14,7 @@
           <li></li>
         {% else %}
           <li>
-            <a role="button" class="contrast" x-on:click="theme = !theme;localStorage.setItem('theme', theme)">
+            <a role="button" class="contrast" x-on:click="theme = !theme;localStorage.setItem('main_theme', theme)">
               <i x-show="theme" data-feather="moon"></i>
               <i x-show="!theme" data-feather="sun"></i>
               {% comment %} <i x-bind:class="theme?'fa-solid fa-moon':'fa-solid fa-sun'"></i> {% endcomment %}
