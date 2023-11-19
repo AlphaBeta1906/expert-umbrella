@@ -22,7 +22,7 @@
     </style>
     <h3>Write a post</h3>
     <article>
-    <form action="" method="post">
+    <form action="" method="post" x-data="{draft: true}">
             {% include "components/error.html" %}
 
             {% csrf_token %}
@@ -54,7 +54,7 @@
                     {{form.is_complete.label}}
                 </label>
                 <label for="form.is_draft.name">
-                    {{form.is_draft}}
+                    {% render_field form.is_draft x-on::change="draft=!draft"   %}
                     {{form.is_draft.label}}
                 </label>
                 <label for="form.is_nsfw.name">
@@ -112,7 +112,7 @@
 
             </script>
             {{form.media.js}}
-            <button type="submit">{{edit|yesno:"Edit,Create"}} post </button>
+            <button type="submit" x-text="draft?'Save draft':'{{edit|yesno:"Edit,Publish"}} post' " ></button>
         </form>
     </article>
 {% endblock content %}
