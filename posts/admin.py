@@ -1,4 +1,9 @@
 from django.contrib import admin
+from django.http import HttpResponse,HttpResponseRedirect
+from django.shortcuts import redirect
+from django.template.loader import get_template,render_to_string
+from zipfile import ZipFile
+from io import BytesIO
 from .models import (
     Post,
     Tag,
@@ -45,6 +50,7 @@ class PostAdmin(admin.ModelAdmin):
         "likes",
         "report_count",
     )
+    actions = ("export_html",)
 
     def has_add_permission(self, obj: Post = None):
         return False
@@ -56,7 +62,20 @@ class PostAdmin(admin.ModelAdmin):
     def like_count(self, obj: Post = None):
         if obj:
             return len(obj.likes.all())
+    
+    @admin.action(description="Export to html")
+    def export_html(self, request, queryset):
+        zip_buffer = BytesIO()
+        with ZipFile(zip_buffer, "w") as zip_file:
+            for post in queryset:
+                html_content = render_to_string("read.html",{"title": post.title,"post": post,},)
+                zip_file.writestr(f"post_{post.id}.html", html_content)
+        zip_buffer.seek(0)
 
+        response = HttpResponse(zip_buffer.read(), content_type='application/zip')
+        response['Content-Disposition'] = 'attachment; filename="exported_data.zip"'
+        return response
+    
 
 class TagAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "background_color")
