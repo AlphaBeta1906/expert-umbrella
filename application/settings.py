@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from redislite import Redis
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv
@@ -146,8 +147,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "cache",
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": Redis(BASE_DIR / "cache.db"),
     }
 }
 

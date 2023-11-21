@@ -38,6 +38,7 @@ django-compressor = "^4.4"
 gunicorn = "^21.2.0"
 django-simple-captcha = "^0.5.20"
 django-colorfield = "^0.10.1"
+redislite = "^6.2.899109"
 
 
 [build-system]
