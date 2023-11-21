@@ -236,6 +236,7 @@ def edit_post(request: HttpRequest, id, title):
         {
             "title": "Edit post",
             "form": form,
+            "is_draft": post.is_draft,
             "content": post.content,
             "edit": True,
         },

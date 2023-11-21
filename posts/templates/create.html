@@ -20,9 +20,13 @@
         }
         
     </style>
+    {% if edit %}
+    <h3>Edit your post</h3>
+    {% else %}
     <h3>Write a post</h3>
+    {% endif %}
     <article>
-    <form action="" method="post" x-data="{draft: true}">
+    <form action="" method="post" x-data="{draft: '{{is_draft|escapejs}}' == 'True'}">
             {% include "components/error.html" %}
 
             {% csrf_token %}
