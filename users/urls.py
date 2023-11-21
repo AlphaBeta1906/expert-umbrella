@@ -12,7 +12,7 @@ urlpatterns = [
         "auth/password_change/",
         PasswordChangeView.as_view(
             template_name="registration/change_password.html",
-            success_url=reverse_lazy("user:profile"),
+            success_url=reverse_lazy("post:index"),
         ),
         name="change_password",
     ),
