@@ -22,14 +22,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap" rel="stylesheet"> 
 </head>
-<body class="container">
+<body>
     {% comment %} x-data="{theme: localStorage.getItem('theme') == 'true' }" x-bind:data-theme="theme? 'light':'dark'" {% endcomment %}
     {% include "nav.html" %}
     <div style="margin: 1rem;">
         {% include "components/flash_messages.html" %}
     </div>
-    {% block content %}
-    {% endblock content %}
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
     <script>
         feather.replace();
 
@@ -60,7 +62,6 @@
     <footer>
         <hr>
         <center>
-            <p>footer</p>
             <a href="{% url 'about' %}">About</a>
             |
             <a href="#">Privacy policy</a>
@@ -70,6 +71,7 @@
             <a href="https://github.com/AlphaBeta1906/expert-umbrella">Source code</a>
             |
             <a href="https://github.com/AlphaBeta1906/expert-umbrella/issues">Issue report</a>
+            <small>footer</small>
         </center>
     </footer>
 </body>
