@@ -19,7 +19,7 @@
         <hgroup>
             <center>
                 <h1>{{post.title|title}}</h1>
-                <p>By <a href="{% url 'user:profile' post.author.username %}">{{post.author.username}}</a> at {{post.date_published|date:"j M Y"}}</p>
+                <p>By <a href="{% url 'user:profile' post.author.username %}">{{post.author.username}}</a> at {{post.date_published|date:"j M Y f A T"}}</p>
                 {% if post.cover_image %}
                     <img src="{{post.cover_image}} " alt="{{post.title}} cover image " style="width: 100%;height: 350px;" >
                 {% endif %}
