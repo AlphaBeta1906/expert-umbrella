@@ -294,10 +294,10 @@ def report_post(request: HttpRequest, id, title):
     )
 
 @not_baned
-def tag_post(request: HttpRequest, tag):
+def tag_post(request: HttpRequest, slug):
     form = SearchForm()
 
-    tag = get_object_or_404(Tag, name=tag)
+    tag = get_object_or_404(Tag, slug=slug)
     posts = Post.objects.filter(is_draft=False, tag=tag).all()
 
     page = request.GET.get("page", 1)

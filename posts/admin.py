@@ -79,6 +79,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class TagAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "background_color")
+    readonly_fields = ("slug",)
 
 
 class GroupPostAdmin(admin.ModelAdmin):

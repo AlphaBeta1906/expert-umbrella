@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.utils.text import slugify
 from colorfield.fields import ColorField
 
 # Create your models here.
@@ -8,15 +9,15 @@ from colorfield.fields import ColorField
 User = get_user_model()
 
 
-def get_class():
-    classes = open("./posts/tag_css_class.txt")
-    return [(_class.strip(), _class.strip()) for _class in classes.readlines()]
-
-
 class Tag(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True)
     description = models.TextField(max_length=150)
     background_color = ColorField(default="#0088ffd0")
+    slug = models.SlugField(null=True,blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Tag, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
