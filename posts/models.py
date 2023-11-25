@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.utils.text import slugify
 from colorfield.fields import ColorField
+import reversion
 
 # Create your models here.
 
@@ -46,7 +47,7 @@ class GroupPost(models.Model):
         group = GroupPost.objects.filter(id=self.id).first()
         return Post.objects.filter(is_draft=False, group=self.id).count()
 
-
+@reversion.register()
 class Post(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False)
     content = models.TextField(

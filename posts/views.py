@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from markdown import markdown
 from bleach import clean
+from reversion import create_revision,set_user,set_comment
+from reversion.models import Version
 from application.decorators import not_baned, active_required
 from .models import Post, Tag, GroupPost, CommentPost
 from .forms import (
@@ -108,6 +110,8 @@ def index(request: HttpRequest):
 @not_baned
 def read_post(request: HttpRequest, id, title):
     post = get_object_or_404(Post, id=id)
+    versions = Version.objects.get_for_object(post)
+    print(versions)
 
     if not request.user == post.author and post.is_draft:
         return HttpResponseNotFound()
@@ -178,9 +182,12 @@ def create_post(request: HttpRequest):
                 )
             else:
                 post.chapter_id = 1
-
-            post.save()
-            form.save_m2m()
+            with create_revision():
+                post.save()
+                form.save_m2m()
+                
+                set_user(request.user)
+                set_comment("initial save")
 
             return redirect("post:index")
 
