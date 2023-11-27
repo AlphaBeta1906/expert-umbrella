@@ -192,6 +192,9 @@ def create_post(request: HttpRequest):
             return redirect("post:index")
 
     form = PostForm()
+    form.fields["group"].queryset = GroupPost.objects.filter(
+        owner=request.user
+    ).all()
     return render(
         request, "create.html", {"title": "Create post", "form": form}
     )
