@@ -25,6 +25,23 @@
     {% else %}
     <h3>Write a post</h3>
     {% endif %}
+    {% comment %} {% if edit %}
+        <article>
+            <header>
+                <h5>Revision history</h5>
+            </header>
+            <form action="">
+                {% comment %} {{revision_form.as_p}} {% endcomment %}
+                <select name="revision" id="">
+                    <option value="" selected="">---------</option>
+                    {% for revision in post_revisions  %}
+                        <option value="{{revision.revision.id}}">{{revision.revision.comment}} </option>
+                    {% endfor %}
+                </select>
+                <button>Revert</button>
+            </form>
+        </article>
+    {% endif %} {% endcomment %}
     <article>
     <form action="" method="post" x-data="{draft: '{{is_draft|escapejs}}' == 'True'}">
             {% include "components/error.html" %}

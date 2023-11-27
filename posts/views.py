@@ -7,13 +7,14 @@ from django.http import (
 )
 from django.conf import settings
 from django.contrib import messages
+from django.utils import timezone
 from django.core.paginator import Paginator
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from markdown import markdown
 from bleach import clean
-from reversion import create_revision,set_user,set_comment
+from reversion import create_revision,set_user,set_comment,set_date_created
 from reversion.models import Version
 from application.decorators import not_baned, active_required
 from .models import Post, Tag, GroupPost, CommentPost
@@ -25,6 +26,7 @@ from .forms import (
     SearchForm,
     CommentPostForm,
     ReportCommentPostForm,
+    PostRevisionForm,
 )
 
 # Create your views here.
@@ -110,8 +112,6 @@ def index(request: HttpRequest):
 @not_baned
 def read_post(request: HttpRequest, id, title):
     post = get_object_or_404(Post, id=id)
-    versions = Version.objects.get_for_object(post)
-    print(versions)
 
     if not request.user == post.author and post.is_draft:
         return HttpResponseNotFound()
@@ -188,6 +188,7 @@ def create_post(request: HttpRequest):
                 
                 set_user(request.user)
                 set_comment("initial save")
+                set_date_created(timezone.now())
 
             return redirect("post:index")
 
@@ -205,7 +206,9 @@ def create_post(request: HttpRequest):
 @not_baned
 def edit_post(request: HttpRequest, id, title):
     post = Post.objects.filter(id=id).first()
-
+    post_revisions = Version.objects.get_for_object(post)
+    print(Version.objects.filter(id=1).first())
+    
     if not request.user == post.author:
         return HttpResponseNotFound()
 
@@ -240,6 +243,10 @@ def edit_post(request: HttpRequest, id, title):
     form.fields["group"].queryset = GroupPost.objects.filter(
         owner=request.user
     ).all()
+    revision_form = PostRevisionForm()
+    for revision in post_revisions:
+        print(revision.revision.id)
+    revision_form.fields["revisions"].queryset = post_revisions
     return render(
         request,
         "create.html",
@@ -249,6 +256,8 @@ def edit_post(request: HttpRequest, id, title):
             "is_draft": post.is_draft,
             "content": post.content,
             "edit": True,
+            "revision_form": revision_form,
+            "post_revisions": post_revisions,
         },
     )
 

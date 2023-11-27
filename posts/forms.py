@@ -69,3 +69,6 @@ class ReportCommentPostForm(ModelForm):
     class Meta:
         model = ReportCommentPost
         fields = ("reason", "description")
+
+class PostRevisionForm(forms.Form):
+    revisions = forms.ModelChoiceField(queryset=None)
