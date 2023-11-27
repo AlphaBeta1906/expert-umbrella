@@ -40,7 +40,8 @@
                         <option value="{{revision.revision.id}}">{{revision.revision.comment}} </option>
                     {% endfor %}
                 </select>
-                <button>Revert</button>
+                <small>By reverting your changes would not be saved</small>
+                <button type="submit">Revert</button>
             </form>
         </article>
     {% endif %} 
