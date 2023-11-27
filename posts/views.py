@@ -96,7 +96,7 @@ def index(request: HttpRequest):
         request,
         "index.html",
         {
-            "title": "index",
+            "title": "Project shiorium|",
             "form": form,
             "is_posts": True,
             "search_placeholder": "Search post title",
