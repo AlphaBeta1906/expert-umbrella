@@ -15,7 +15,7 @@ from django.views.decorators.http import require_POST
 from markdown import markdown
 from bleach import clean
 from reversion import create_revision,set_user,set_comment,set_date_created
-from reversion.models import Version
+from reversion.models import Version,Revision
 from application.decorators import not_baned, active_required
 from .models import Post, Tag, GroupPost, CommentPost
 from .forms import (
@@ -27,6 +27,7 @@ from .forms import (
     CommentPostForm,
     ReportCommentPostForm,
     PostRevisionForm,
+    EditPostForm,
 )
 
 # Create your views here.
@@ -207,15 +208,15 @@ def create_post(request: HttpRequest):
 def edit_post(request: HttpRequest, id, title):
     post = Post.objects.filter(id=id).first()
     post_revisions = Version.objects.get_for_object(post)
-    print(Version.objects.filter(id=1).first())
     
     if not request.user == post.author:
         return HttpResponseNotFound()
 
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = EditPostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
+            
             post.content = clean(
                 post.content,
                 tags=settings.ALLOWED_HTML_TAGS,
@@ -235,17 +236,20 @@ def edit_post(request: HttpRequest, id, title):
                 )
             else:
                 post.chapter_id = 1
-            post.save()
-            form.save_m2m()
+            with create_revision():
+                post.save()
+                form.save_m2m()
+                revision_message = form.cleaned_data["revision_message"]  
+                set_user(request.user)
+                set_comment(f"{revision_message} on {timezone.now()}")
+                set_date_created(timezone.now())
             return redirect("post:index")
 
-    form = PostForm(instance=post)
+    form = EditPostForm(instance=post)
     form.fields["group"].queryset = GroupPost.objects.filter(
         owner=request.user
     ).all()
     revision_form = PostRevisionForm()
-    for revision in post_revisions:
-        print(revision.revision.id)
     revision_form.fields["revisions"].queryset = post_revisions
     return render(
         request,
@@ -258,9 +262,16 @@ def edit_post(request: HttpRequest, id, title):
             "edit": True,
             "revision_form": revision_form,
             "post_revisions": post_revisions,
+            "post": post,
         },
     )
 
+def edit_revision(request: HttpRequest):
+    if request.method == "POST":
+        id = request.POST["post_id"]
+        slug = request.POST["post_slug"]
+        Revision.objects.filter(id=request.POST["revision"]).first().revert()
+    return redirect("post:edit",id=id,title=slug)
 
 @login_required
 @active_required

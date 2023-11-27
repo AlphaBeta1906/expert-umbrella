@@ -25,13 +25,15 @@
     {% else %}
     <h3>Write a post</h3>
     {% endif %}
-    {% comment %} {% if edit %}
+   {% if edit %}
         <article>
             <header>
                 <h5>Revision history</h5>
             </header>
-            <form action="">
-                {% comment %} {{revision_form.as_p}} {% endcomment %}
+            <form method="post" action="{% url 'post:revision'  %}">
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value="{{post.id}}">
+                <input type="hidden" name="post_slug" value="{{post.title|slugify}}">
                 <select name="revision" id="">
                     <option value="" selected="">---------</option>
                     {% for revision in post_revisions  %}
@@ -41,11 +43,15 @@
                 <button>Revert</button>
             </form>
         </article>
-    {% endif %} {% endcomment %}
+    {% endif %} 
     <article>
     <form action="" method="post" x-data="{draft: '{{is_draft|escapejs}}' == 'True'}">
             {% include "components/error.html" %}
-
+            {% if edit %}
+                <label for="{{form.revision_message.name}}">Revision messages</label>
+                {% render_field form.revision_message  placeholder="Revision messages" %}
+                <small>Be sure to have unique revision name</small>
+            {% endif %}
             {% csrf_token %}
             <label for="{{form.title.name}}">Post title </label>
             {% render_field form.title  placeholder="Post title" %}
