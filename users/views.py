@@ -48,6 +48,10 @@ def profile(request: HttpRequest, username):
 
     posts = posts_mode_dict[posts_mode].filter(is_draft=False).all()
 
+    if request.user == get_user:
+        posts = posts_mode_dict[posts_mode].all()
+        print(posts)
+        
     paginator = Paginator(posts, settings.ITEM_PER_PAGE)
     page_obj = paginator.get_page(page)
 
@@ -89,9 +93,6 @@ def profile(request: HttpRequest, username):
                 "liked_post": True,
             },
         )
-
-    if request.user == get_user:
-        posts = posts_mode_dict[posts_mode].all()
 
     return render(
         request,
