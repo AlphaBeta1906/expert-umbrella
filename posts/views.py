@@ -271,7 +271,7 @@ def edit_revision(request: HttpRequest):
         id = request.POST["post_id"]
         slug = request.POST["post_slug"]
         Revision.objects.filter(id=request.POST["revision"]).first().revert()
-    return redirect("post:edit",id=id,title=slug)
+    return redirect("post:read",id=id,title=slug)
 
 @login_required
 @active_required
