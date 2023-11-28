@@ -47,7 +47,7 @@ class GroupPost(models.Model):
         group = GroupPost.objects.filter(id=self.id).first()
         return Post.objects.filter(is_draft=False, group=self.id).count()
 
-@reversion.register()
+@reversion.register(exclude=("likes","chapter_id","is_hide"))
 class Post(models.Model):
     title = models.CharField(max_length=50, null=False, blank=False)
     content = models.TextField(
