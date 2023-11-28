@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from markdown import markdown
 from bleach import clean
+from html_sanitizer import Sanitizer
 from reversion import create_revision,set_user,set_comment,set_date_created
 from reversion.models import Version,Revision
 from application.decorators import not_baned, active_required
@@ -164,13 +165,8 @@ def create_post(request: HttpRequest):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.content = clean(
-                post.content,
-                tags=settings.ALLOWED_HTML_TAGS,
-                attributes=settings.ALLOWED_HTML_ATTRIBUTES,
-                css_sanitizer=settings.CSS_SANITIZER,
-                protocols=["data"],
-            )
+            sanitizer = Sanitizer()
+            post.content = sanitizer.sanitize(post.content)
 
             if (
                 post.group
@@ -216,14 +212,9 @@ def edit_post(request: HttpRequest, id, title):
         form = EditPostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
-            
-            post.content = clean(
-                post.content,
-                tags=settings.ALLOWED_HTML_TAGS,
-                attributes=settings.ALLOWED_HTML_ATTRIBUTES,
-                css_sanitizer=settings.CSS_SANITIZER,
-                protocols=["data"],
-            )
+            sanitizer = Sanitizer()
+            post.content = sanitizer.sanitize(post.content)
+
 
             if (
                 post.group

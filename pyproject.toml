@@ -40,6 +40,7 @@ django-simple-captcha = "^0.5.20"
 django-colorfield = "^0.10.1"
 redislite = "^6.2.899109"
 django-reversion = "^5.0.8"
+html-sanitizer = "^2.2.0"
 
 
 [build-system]
