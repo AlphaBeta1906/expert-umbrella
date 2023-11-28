@@ -38,6 +38,7 @@ GRAPPELLI_ADMIN_TITLE = "My admin"
 AVATAR_GRAVATAR_DEFAULT = "monsterid"
 
 from bleach.css_sanitizer import CSSSanitizer
+from html_sanitizer.sanitizer import DEFAULT_SETTINGS
 
 ALLOWED_HTML_TAGS = {
     "p",
@@ -90,6 +91,12 @@ CSS_SANITIZER = CSSSanitizer(
         "width",
     ]
 )
+
+SANITIZE_SETTINGS = dict(DEFAULT_SETTINGS)
+SANITIZE_SETTINGS["tags"].add("img")
+SANITIZE_SETTINGS["empty"].add("img")
+SANITIZE_SETTINGS["attributes"].update({"img": ("src", )})
+
 
 LOGIN_URL = "user:login"
 
