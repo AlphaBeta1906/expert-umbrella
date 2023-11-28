@@ -34,6 +34,8 @@ class PostForm(ModelForm):
         )
         widgets = {"tag": TagWidget}
 
+class EditPostForm(PostForm):
+    revision_message = forms.CharField(max_length=50,required=True)
 
 class ReportPostForm(ModelForm):
     class Meta:
@@ -69,3 +71,6 @@ class ReportCommentPostForm(ModelForm):
     class Meta:
         model = ReportCommentPost
         fields = ("reason", "description")
+
+class PostRevisionForm(forms.Form):
+    revisions = forms.ModelChoiceField(queryset=None)

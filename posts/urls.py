@@ -11,6 +11,7 @@ urlpatterns = [
     path("post/delete/<int:id>/<str:title>", views.delete_post, name="delete"),
     path("post/like/<int:id>/<str:title>", views.like_post, name="like"),
     path("post/report/<int:id>/<str:title>", views.report_post, name="report"),
+    path("post/revision/", views.edit_revision, name="revision"),
     path("tag/<slug:slug>", views.tag_post, name="tag"),
     path("tag/", views.tag_index, name="tagindex"),
     path("group/", views.group_index, name="group"),
