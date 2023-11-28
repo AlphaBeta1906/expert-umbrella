@@ -15,7 +15,7 @@ urlpatterns = [
     path("tag/<slug:slug>", views.tag_post, name="tag"),
     path("tag/", views.tag_index, name="tagindex"),
     path("group/", views.group_index, name="group"),
-    path("group/create", views.create_group, name="groupcreate"),
+    path("group/create/", views.create_group, name="groupcreate"),
     path("group/<int:id>/<str:title>", views.group_post, name="grouppost"),
     path("group/follow/<int:id>",views.follow_group,name="likegroup"),
     path(
