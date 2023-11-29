@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import about, license
 
-admin.site.site_header = "My site administration"
+admin.site.site_header = "Shiorium site administration"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
