@@ -197,6 +197,7 @@ def create_post(request: HttpRequest):
     form.fields["group"].queryset = GroupPost.objects.filter(
         owner=request.user
     ).all()
+    form.fields["tag"].queryset = Tag.objects.filter(admin_tag=request.user.is_staff).all()
     return render(
         request, "create.html", {"title": "Create post", "form": form}
     )
