@@ -65,15 +65,11 @@ ALLOWED_HTML_TAGS = {
     "font",
 }
 
-ALLOWED_HTML_ATTRIBUTES = [
-    "align",
-    "class",
-    "style",
-    "color",
-    "href",
-    "target",
-    "src",
-]
+ALLOWED_HTML_ATTRIBUTES = {
+    "*": ["class","style","title","color","align"],
+    "a": ["href","target"],
+    "img": ["src","alt"]
+}
 
 CSS_SANITIZER = CSSSanitizer(
     allowed_css_properties=[
