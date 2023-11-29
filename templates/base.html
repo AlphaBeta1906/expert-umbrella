@@ -32,6 +32,24 @@
         {% block content %}
         {% endblock content %}
     </div>
+    <footer>
+        <hr>
+        <center>
+            <div style="margin-top: 1.5rem;font-size: 15pt;">
+                <p style="margin-bottom: 0rem;">Shiorium v0.1.5-beta</p>
+                <p>Made with <span style="color:#e68e9e"><i data-feather="heart" ></i></span> using <a href="https://www.djangoproject.com/" target="_blank">Django framework</a></p>
+            </d>
+            <a href="{% url 'about' %}">About</a>
+            |
+            <a href="#">Privacy policy</a>
+            |
+            <a href="{% url 'license' %}">License</a>
+            |
+            <a href="https://github.com/AlphaBeta1906/expert-umbrella">Source code</a>
+            |
+            <a href="https://github.com/AlphaBeta1906/expert-umbrella/issues">Issue report</a>
+        </center>
+    </footer>
     <script>
         feather.replace();
 
@@ -59,23 +77,5 @@
             })
         }
       </script>
-    <footer>
-        <hr>
-        <center>
-            <div style="margin-top: 1.5rem;font-size: 15pt;">
-                <p style="margin-bottom: 0rem;">Shiorium v0.1.5-beta</p>
-                <p>Made with <span style="color:#e68e9e"><i data-feather="heart" ></i></span> using <a href="https://www.djangoproject.com/" target="_blank">Django framework</a></p>
-            </d>
-            <a href="{% url 'about' %}">About</a>
-            |
-            <a href="#">Privacy policy</a>
-            |
-            <a href="{% url 'license' %}">License</a>
-            |
-            <a href="https://github.com/AlphaBeta1906/expert-umbrella">Source code</a>
-            |
-            <a href="https://github.com/AlphaBeta1906/expert-umbrella/issues">Issue report</a>
-        </center>
-    </footer>
 </body>
 </html>
