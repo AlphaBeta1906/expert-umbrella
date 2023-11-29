@@ -15,7 +15,7 @@ class Tag(models.Model):
     description = models.TextField(max_length=150)
     background_color = ColorField(default="#0088ffd0")
     slug = models.SlugField(null=True,blank=True)
-    admin_tag = models.BooleanField(default=True)
+    admin_tag = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

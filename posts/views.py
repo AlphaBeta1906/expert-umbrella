@@ -251,6 +251,7 @@ def edit_post(request: HttpRequest, id, title):
     form.fields["group"].queryset = GroupPost.objects.filter(
         owner=request.user
     ).all()
+    form.fields["tag"].queryset = Tag.objects.filter(admin_tag=request.user.is_staff).all()
     revision_form = PostRevisionForm()
     revision_form.fields["revisions"].queryset = post_revisions
     return render(
