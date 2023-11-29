@@ -40,7 +40,7 @@
                         <option value="{{revision.revision.id}}">{{revision.revision.comment}} </option>
                     {% endfor %}
                 </select>
-                <small>By reverting your changes would not be saved</small>
+                <small>By reverting, your current changes would not be saved</small>
                 <button type="submit">Revert</button>
             </form>
         </article>
@@ -51,7 +51,7 @@
             {% if edit %}
                 <label for="{{form.revision_message.name}}">Revision messages</label>
                 {% render_field form.revision_message  placeholder="Revision messages" %}
-                <small>Be sure to have unique revision name</small>
+                <small>Be sure to have unique and clear revision name</small>
             {% endif %}
             {% csrf_token %}
             <label for="{{form.title.name}}">Post title </label>
