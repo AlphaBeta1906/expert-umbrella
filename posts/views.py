@@ -327,6 +327,12 @@ def report_post(request: HttpRequest, id, title):
     )
 
 @not_baned
+def tag_index(request: HttpRequest):
+    tags = Tag.objects.all()
+
+    return render(request, "tags.html", {"title": "Tags", "tags": tags})
+
+@not_baned
 def tag_post(request: HttpRequest, slug):
     form = SearchForm()
 
@@ -486,6 +492,7 @@ def group_delete(request: HttpRequest, id, title):
 
     if group.owner == request.user:
         group.delete()
+        messages.success(request, f"Delete group {group} success")
         return redirect("post:group")
     else:
         return HttpResponseForbidden()
@@ -542,6 +549,20 @@ def comment_post(request: HttpRequest, id, title):
 @login_required
 @active_required
 @not_baned
+def delete_comment(request: HttpRequest,id):
+    _comment = get_object_or_404(CommentPost, id=id)
+    post = _comment.post
+    
+    if _comment.author == request.user:
+        _comment.delete()
+        messages.success(request, f"Delete group {_comment} success")
+        return redirect("post:comments", id=post.id, title=slugify(post.title))
+    else:
+        return HttpResponseForbidden()
+    
+@login_required
+@active_required
+@not_baned
 def report_comment(request: HttpRequest, id):
     _comment = get_object_or_404(CommentPost, id=id)
     form = ReportCommentPostForm()
@@ -556,7 +577,7 @@ def report_comment(request: HttpRequest, id):
             comment.author = request.user
             comment.comment = _comment
             comment.save()
-            messages.info(request, "Reporting comment success")
+            messages.success(request, "Reporting comment success")
             
             if not post_id or not post_title:
                 return redirect("post:index")
@@ -573,8 +594,4 @@ def report_comment(request: HttpRequest, id):
         },
     )
 
-@not_baned
-def tag_index(request: HttpRequest):
-    tags = Tag.objects.all()
 
-    return render(request, "tags.html", {"title": "Tags", "tags": tags})
