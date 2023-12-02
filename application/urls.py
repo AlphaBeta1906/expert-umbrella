@@ -22,6 +22,7 @@ from .views import about, license
 admin.site.site_header = "Shiorium site administration"
 
 urlpatterns = [
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path("admin/", admin.site.urls),
     path("users/", include("users.urls")),
     path("", include("posts.urls")),

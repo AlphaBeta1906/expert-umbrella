@@ -5,6 +5,9 @@ from users.models import User,UserBan
 
 
 def active_required(function):
+    """
+    Decorator check if user account alrady confirmed
+    """
     @wraps(function)
     def wrap(request, *args, **kwargs):
         user: User = request.user
@@ -22,6 +25,9 @@ def active_required(function):
 
 
 def not_baned(function):
+    """
+    Decorator to check if user is in baned period or not
+    """
     @wraps(function)
     def wrap(request, *args, **kwargs):
         if request.user.is_authenticated:

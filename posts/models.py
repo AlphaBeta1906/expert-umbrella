@@ -11,6 +11,9 @@ User = get_user_model()
 
 
 class Tag(models.Model):
+    """
+    Stores a single tag entry, each with unique name.
+    """
     name = models.CharField(max_length=50, null=False, unique=True)
     description = models.TextField(max_length=150)
     background_color = ColorField(default="#0088ffd0")
@@ -29,6 +32,9 @@ class Tag(models.Model):
 
 
 class GroupPost(models.Model):
+    """
+    A model that be used to group :model:`posts.Post` entry
+    """
     title = models.CharField(max_length=150, null=False, blank=False)
     description = models.TextField(blank=False, max_length=250)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
@@ -50,6 +56,10 @@ class GroupPost(models.Model):
 
 @reversion.register(exclude=("likes","chapter_id","date_created","date_updated","date_published","is_hide"))
 class Post(models.Model):
+    """
+    Entry of single Post, each post required to relate with at least a `Post.tag` 
+    and each post is owned by single `users.User`, all posts are allowed to have null/empty :model:`posts.GroupPost`
+    """
     title = models.CharField(max_length=50, null=False, blank=False)
     content = models.TextField(
         help_text="This site are using markdown to writing content, You can find the guide at <a target='_blank' href='https://www.markdownguide.org/cheat-sheet/'>here</a> ",
