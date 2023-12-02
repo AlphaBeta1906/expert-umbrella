@@ -1,10 +1,11 @@
-<dialog x-bind:open="open" @keypress="console.log($event)">
+<dialog x-data x-bind:open="open" @keydown.enter="alert('Submitted!')">
     <article>
       <header>
         <Link  style="cursor: pointer;" aria-label="Close" x-on:click="open = !open" x-transition x-cloak class="close" />
         <p>
           {% comment %} <strong>🗓️ Thank You for Registering!</strong> {% endcomment %}
         </p>
+        <h2>Delete confirmation</h2>
       </header>
       <h5>Are you sure to delete this post ({{post}}) ? </h5>
       {% comment %} <p>
