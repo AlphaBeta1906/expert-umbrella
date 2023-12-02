@@ -15,6 +15,10 @@ class Role(models.Model):
 
 
 class User(AbstractUser):
+    """
+    A user model that inherit 'AbstractUser' class and customising email and group field, 
+    also adding new field such as profile,show_liked_post,allow_nsfw,show_email and account_confirmed 
+    """
     email = models.EmailField(unique=True, max_length=50)
     groups = models.ForeignKey(
         Group,
@@ -47,6 +51,10 @@ class User(AbstractUser):
         return self.username
 
 class UserBan(models.Model):
+    """
+    A model to track user ban period, each user still allowed 
+    to login but can't do anything during ban period in website
+    """
     BAN_PERIOD_CHOICES = (
         ("1m", "1 Minute"),
         ("5m", "5 Minutes"),
