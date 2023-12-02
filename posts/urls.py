@@ -27,6 +27,7 @@ urlpatterns = [
         name="groupdelete",
     ),
     path("comments/<int:id>/<str:title>", views.comment_post, name="comments"),
+    path("comments/<int:id>", views.delete_comment, name="deletecomment"),
     path(
         "report/comment/<int:id>", views.report_comment, name="reportcomment"
     ),

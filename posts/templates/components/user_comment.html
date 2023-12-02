@@ -1,16 +1,44 @@
 {% load gravatar %}
-<section>
+<section x-data="{open: false}" x-bind:class="open? 'modal-is-open modal-is-opening':'modal-is-closing'">
     <p>
         {% gravatar comment.author.email 35 %}
         <a href="{% url 'user:profile' comment.author.username %}">{{comment.author.username}}</a>
     </p>
-    <p>
+    <p style="margin-bottom: 0rem;">
         {{comment.content}}
     </p>
     {% comment %} <small>at {% now "Y-m-d H:i" %} </small> {% endcomment %}
-    <small>At {{comment.date_created|date:"j M Y"}} </small>
+    <small>{{post.date_published|date:"j M Y f A T"}}</small>
     <p>
         <a href="{% url 'post:reportcomment' comment.id %}?post_id={{post.id}}&post_title={{post.title|slugify}}" title="report post"><i data-feather="flag"></i></a>
+        {% if user.username == comment.author.username %}
+            <a style="cursor: pointer;" x-on:click="open = !open">
+                <i data-feather="trash" style="color: #cc0000;"></i>
+            </a>
+        {% endif %}
     </p>
     <hr>
+    <dialog x-bind:open="open" @keydown.enter="alert('Submitted!')">
+        <article>
+          <header>
+            <Link  style="cursor: pointer;" aria-label="Close" x-on:click="open = !open" x-transition x-cloak class="close" />
+            <p>
+              {% comment %} <strong>🗓️ Thank You for Registering!</strong> {% endcomment %}
+            </p>
+            <h2>Delete confirmation</h2>
+          </header>
+          <h5>Are you sure to delete your comment ? </h5>
+          {% comment %} <p>
+            We're excited to have you join us for our
+            upcoming event. Please arrive at the museum 
+            on time to check in and get started.
+          </p>
+          <ul>
+            <li>Date: Saturday, April 15</li>
+            <li>Time: 10:00am - 12:00pm</li>
+          </ul> {% endcomment %}
+          <a role="button" href="{% url 'post:deletecomment' comment.id %}" class="primary">Yes</a>
+          <button class="secondary" x-on:click="open = !open">Cancel</button>
+        </article>
+    </dialog>
 </section>
