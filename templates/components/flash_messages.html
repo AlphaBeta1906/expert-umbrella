@@ -4,7 +4,12 @@
         background-color: #0eb036; /* Red */
         color: white;
         margin-bottom: 15px;
+        color: white;
       }
+    
+    .danger{
+      background-color: #0eb036; /* Red */
+    }
       
       /* The close button */
       .closebtn {
@@ -29,7 +34,7 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <div class="alert" x-data="{open: true}" x-show="open" x-transition> 
+    <div class="alert {{message.tag}}" x-data="{open: true}" x-show="open" x-transition> 
       <span class="closebtn" x-on:click="open = !open">&times;</span> 
       <p>{{message}}</p>
     </div>
