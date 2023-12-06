@@ -152,8 +152,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "cache",
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": Redis(BASE_DIR / "cache.db"),
     }
 }
 
