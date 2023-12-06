@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from redislite import Redis
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv
@@ -38,7 +37,6 @@ GRAPPELLI_ADMIN_TITLE = "My admin"
 AVATAR_GRAVATAR_DEFAULT = "monsterid"
 
 from bleach.css_sanitizer import CSSSanitizer
-from html_sanitizer.sanitizer import DEFAULT_SETTINGS
 
 ALLOWED_HTML_TAGS = {
     "p",
@@ -87,12 +85,6 @@ CSS_SANITIZER = CSSSanitizer(
         "width",
     ]
 )
-
-SANITIZE_SETTINGS = dict(DEFAULT_SETTINGS)
-SANITIZE_SETTINGS["tags"].add("img")
-SANITIZE_SETTINGS["empty"].add("img")
-SANITIZE_SETTINGS["attributes"].update({"img": ("src", )})
-
 
 LOGIN_URL = "user:login"
 
@@ -152,8 +144,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": Redis(BASE_DIR / "cache.db"),
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "cache",
     }
 }
 
