@@ -280,9 +280,9 @@ def edit_revision(request: HttpRequest):
 @active_required
 @not_baned
 def delete_post(request: HttpRequest, id, title):
-    posts = get_object_or_404(Post, id=id)
-    if posts.author == request.user:
-        posts.delete()
+    post = get_object_or_404(Post, id=id)
+    if post.author == request.user:
+        post.delete()
         messages.success(request, f"Post {post} deleted")
         return redirect("post:index")
     else:
