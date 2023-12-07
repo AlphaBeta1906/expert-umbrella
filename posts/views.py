@@ -555,7 +555,7 @@ def delete_comment(request: HttpRequest,id):
     
     if _comment.author == request.user:
         _comment.delete()
-        messages.success(request, f"Delete group {_comment} success")
+        messages.success(request, f"Delete comment success")
         return redirect("post:comments", id=post.id, title=slugify(post.title))
     else:
         return HttpResponseForbidden()
