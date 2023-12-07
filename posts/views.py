@@ -283,6 +283,7 @@ def delete_post(request: HttpRequest, id, title):
     posts = get_object_or_404(Post, id=id)
     if posts.author == request.user:
         posts.delete()
+        messages.success(request, f"Post {post} deleted")
         return redirect("post:index")
     else:
         return HttpResponseNotFound()
@@ -492,7 +493,7 @@ def group_delete(request: HttpRequest, id, title):
 
     if group.owner == request.user:
         group.delete()
-        messages.success(request, f"Delete group {group} success")
+        messages.success(request, f"Group {group} deleted")
         return redirect("post:group")
     else:
         return HttpResponseForbidden()
@@ -555,7 +556,7 @@ def delete_comment(request: HttpRequest,id):
     
     if _comment.author == request.user:
         _comment.delete()
-        messages.success(request, f"Delete comment success")
+        messages.success(request, f"Comment deleted")
         return redirect("post:comments", id=post.id, title=slugify(post.title))
     else:
         return HttpResponseForbidden()
