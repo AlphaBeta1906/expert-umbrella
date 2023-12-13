@@ -6,6 +6,14 @@
     --pico-dropdown-background-color: #252427;
 } */
 
+*{
+    font-family: 'EB Garamond', sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: 'EB Garamond', serif;
+}
+
 .card_title{
     color: #2a3140;
 }
