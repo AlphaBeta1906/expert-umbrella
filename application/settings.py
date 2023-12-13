@@ -115,7 +115,9 @@ INSTALLED_APPS = [
 
 CAPTCHA_IMAGE_SIZE = (250,75)
 
-CAPTCHA_LENGTH = 8
+# CAPTCHA_LENGTH = 8
+
+CAPTCHA_LENGTH = 5
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
