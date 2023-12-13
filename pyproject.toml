@@ -42,7 +42,6 @@ django-reversion = "^5.0.8"
 html-sanitizer = "^2.2.0"
 docutils = "^0.20.1"
 django-notifications-hq = "^1.8.3"
-redislite = "^6.2.912183"
 
 
 [build-system]
