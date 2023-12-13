@@ -24,7 +24,7 @@ The general purpose of [Project shiorium](https://shiorium.pythonanywhere.com/) 
 
 7. True archive: Unlike post in twitter [Project shiorium](https://shiorium.pythonanywhere.com/) this website could be proper place to save your work. I mean, do twitter supposed to be platform for this thing? 
 
-Altough there are some pros compared to [fanfiction.net](https://www.fanfiction.net/) and [ao3](https://archiveofourown.org), [Project shiorium](https://shiorium.pythonanywhere.com/) do not file managing system. It's an hobby project you know, and i don't have budget to buy hosting that have large file storage, so yeah, things like cover image and profile picture are use url to work(for profile picture i use gravatar), but i'm sure that doesn't mean [Project shiorium](https://shiorium.pythonanywhere.com/) is unusable. But if you want you can help in development process, here's how:
+Altough there are some pros compared to [fanfiction.net](https://www.fanfiction.net/) and [ao3](https://archiveofourown.org), [Project shiorium](https://shiorium.pythonanywhere.com/) still lack something like: the site doens't have file managing system. It's an hobby project you know, and i don't have budget to buy hosting that have large file storage, so yeah, things like cover image and profile picture are use url to work(for profile picture i use gravatar), but i'm sure that doesn't mean [Project shiorium](https://shiorium.pythonanywhere.com/) is unusable. But if you want you can help in development process, here's how:
 
 ## Development 
 
