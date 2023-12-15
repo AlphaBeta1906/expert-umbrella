@@ -10,7 +10,6 @@ packages = [{include = "expert_umbrella"}]
 taskipy = "^1.12.0"
 blue = "^0.9.1"
 django-debug-toolbar = "^4.2.0"
-django-notifications-hq = "^1.8.3"
 
 [tool.taskipy.tasks]
 server = "python manage.py runserver"
@@ -42,6 +41,7 @@ django-reversion = "^5.0.8"
 html-sanitizer = "^2.2.0"
 docutils = "^0.20.1"
 django-notifications-hq = "^1.8.3"
+setuptools = "^69.0.2"
 
 
 [build-system]
