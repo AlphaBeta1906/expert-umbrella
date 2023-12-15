@@ -23,3 +23,10 @@ def license(request: HttpRequest):
     return render(
         request, "generic.html", {"title": "Licensing", "content": content}
     )
+
+def privacy_policy(request: HttpRequest):
+    content = open(settings.BASE_DIR / "application/docs/privacy_policy.md").read()
+
+    return render(
+        request, "generic.html", {"title": "Privacy policy", "content": content}
+    )
