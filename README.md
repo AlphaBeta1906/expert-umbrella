@@ -37,4 +37,4 @@ To be added
 - All novelites and fanfic writer, i'm not a writer but your post in [#shiorinstories](https://twitter.com/hashtag/shiorinstories?src=hashtag_click) were inspired me
 - [python](https://www.python.org/) , [django](https://www.djangoproject.com), and [picocss](https://v2.picocss.com/docs), these are pretty much the pillar of this website and main developing tools
 - [pythonanywhere](https://www.pythonanywhere.com), their generous free tier made me possible to make this website go online
-- [Shiori library](https://discord.gg/shiori-library) fancord server, where i first introduce this website also the place i got this website name - they got project with the same name and allow me to have it as well
+- [Shiori library](https://discord.gg/shiori-library) fancord server, for allowing me to show off this website, also the place i got this website name - they have project with the same name and allow me to have it as well
