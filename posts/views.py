@@ -269,6 +269,9 @@ def edit_post(request: HttpRequest, id, title):
         },
     )
 
+@login_required
+@active_required
+@not_baned
 def edit_revision(request: HttpRequest):
     if request.method == "POST":
         id = request.POST["post_id"]
