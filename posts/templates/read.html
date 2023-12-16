@@ -59,11 +59,11 @@
                     <h2>Other post from group <a href="{% url 'post:grouppost' group.id group.title|slugify %} ">{{group.title|title}} </a> </h2>
                 </header>
                 <main>
-                    {% for post_in_group in group_post  %}
+                    {% for post_in_group in group_post|slice:"0,5"  %}
                         {% if post_in_group != post  %}
-                            <h3>
+                            <h2>
                                 <a href="{% url 'post:read' post_in_group.id  post_in_group.title|slugify %}">{{post_in_group.title|title}} </a>
-                            </h3>
+                            </h2>
                             {% if post_in_group.is_nsfw %}
                                 <small style="display: block;"><i class="fa-solid fa-triangle-exclamation" style="color: #cc0000;"></i>Nsfw post</small>
                             {% endif %}
