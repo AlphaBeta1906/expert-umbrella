@@ -16,6 +16,8 @@ from markdown import markdown
 from bleach import clean
 from reversion import create_revision,set_user,set_comment,set_date_created
 from reversion.models import Version,Revision
+from notifications.signals import notify
+from notifications.models import Notification
 from application.decorators import not_baned, active_required
 from .models import Post, Tag, GroupPost, CommentPost
 from .forms import (
@@ -101,7 +103,7 @@ def index(request: HttpRequest):
         request,
         "index.html",
         {
-            "title": "Project shiorium | Creating story, together ",
+            "title": "Project shiorium ",
             "form": form,
             "is_posts": True,
             "search_placeholder": "Search post title",
@@ -457,7 +459,6 @@ def edit_group(request: HttpRequest, id, title):
 def group_index(request: HttpRequest):
     """a page to display list of groups"""
     form = SearchForm()
-
     groups = GroupPost.objects.all()
 
     page = request.GET.get("page", 1)
@@ -469,8 +470,6 @@ def group_index(request: HttpRequest):
             title = form.cleaned_data["title"]
             return redirect("post:group", query=title)
 
-    page = request.GET.get("page", 1)
-    query = request.GET.get("query", None)
 
     if query:
         groups = groups.filter(name__contains=title).all()
@@ -556,8 +555,9 @@ def comment_post(request: HttpRequest, id, title):
         {
             "title": f"{post.title} comments",
             "post": post,
-            "form": form,
             "comments_count": comments_count,
+
+            "form": form,
             "comments": page_obj,
             "page": page_obj,
         },
@@ -611,4 +611,15 @@ def report_comment(request: HttpRequest, id):
         },
     )
 
+@login_required
+@active_required
+@not_baned
+def notifications_page(request: HttpRequest):
+    notifications = request.user.notifications.all()
+    return render(request,"notification.html",{"title": "Notifications","notifications": notifications})
 
+def mark_notification(request: HttpRequest,id):
+    notification = get_object_or_404(Notification, id=id)
+    notification.mark_as_read()
+
+    return JsonResponse(dict(msg="unread notification"))

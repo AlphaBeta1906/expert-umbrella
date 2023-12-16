@@ -31,4 +31,6 @@ urlpatterns = [
     path(
         "report/comment/<int:id>", views.report_comment, name="reportcomment"
     ),
+    path("notification/", views.notifications_page, name="notification"),
+    path("notification/read/<int:id>", views.mark_notification, name="readnotification"),
 ]
