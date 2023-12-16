@@ -110,7 +110,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "users",
     "posts",
-    # "notifications",
+    "notifications",
 ]
 
 CAPTCHA_IMAGE_SIZE = (250,75)
