@@ -517,17 +517,26 @@ def follow_group(request: HttpRequest,id):
 @not_baned
 def comment_post(request: HttpRequest, id, title):
     post = get_object_or_404(Post, id=id)
+    form = CommentPostForm()
+
+    page = request.GET.get("page", 1)
 
     if not request.user == post.author and post.is_draft:
         return HttpResponseNotFound()
 
     comments = CommentPost.objects.filter(post=post).all()
     comments_count = comments.count()
+    
+    paginator = Paginator(comments, settings.ITEM_PER_PAGE)
+    page_obj = paginator.get_page(page)
 
-    form = CommentPostForm()
 
     if request.method == "POST":
         form = CommentPostForm(request.POST)
+
+        if request.user.is_anonymous:
+            return HttpResponseForbidden()
+
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
@@ -541,9 +550,10 @@ def comment_post(request: HttpRequest, id, title):
         {
             "title": f"{post.title} comments",
             "post": post,
-            "comments_count": comments_count,
-            "comments": comments,
             "form": form,
+            "comments_count": comments_count,
+            "comments": page_obj,
+            "page": page_obj,
         },
     )
 
