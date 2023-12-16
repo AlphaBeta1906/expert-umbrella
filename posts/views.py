@@ -457,6 +457,9 @@ def group_index(request: HttpRequest):
 
     groups = GroupPost.objects.all()
 
+    page = request.GET.get("page", 1)
+    query = request.GET.get("query", None)
+
     if request.method == "POST":
         form = SearchForm(request.POST)
         if form.is_valid():
