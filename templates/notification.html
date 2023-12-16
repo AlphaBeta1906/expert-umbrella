@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+    <ul>
+        {% for notification in notifications.all %}
+            <li style="margin: 0;padding: 1rem;" x-data="{read: {{notification.unread|yesno:"false,true"}}  }" x-bind:class="read?'read':''">
+                <h3 style="margin-bottom: 0rem;">{{notification.verb}} </h3>
+                <p style="margin-top: 0rem;">
+                    {{ notification.description }}
+                </p>
+                On {{notification.timestamp}} UTC
+                <br>
+                {% comment %} <p>{{notification.level}} </p> {% endcomment %}
+                <a x-show="!read"  x-on:click="read=!read;mark_as_read({{notification.id}})">Mark as read</a>
+                <hr>
+            </li>
+        {% empty %}
+    </ul>
+        <h1 style="text-align: center;">No notification here</h1>
+    {% endfor %}
+{% endblock content %}
