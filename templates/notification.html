@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <ul>
-        {% for notification in notifications.all %}
+        {% for notification in notifications %}
             <li style="margin: 0;padding: 1rem;" x-data="{read: {{notification.unread|yesno:"false,true"}}  }" x-bind:class="read?'read':''">
                 <h3 style="margin-bottom: 0rem;">{{notification.verb}} </h3>
                 <p style="margin-top: 0rem;">

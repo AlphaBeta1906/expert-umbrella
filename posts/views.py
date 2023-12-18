@@ -616,7 +616,12 @@ def report_comment(request: HttpRequest, id):
 @not_baned
 def notifications_page(request: HttpRequest):
     notifications = request.user.notifications.all()
-    return render(request,"notification.html",{"title": "Notifications","notifications": notifications})
+    page = request.GET.get("page",1)
+    
+    paginator = Paginator(notifications.all(), settings.ITEM_PER_PAGE)
+    page_obj = paginator.get_page(page)
+    print(page_obj)
+    return render(request,"notification.html",{"title": "Notifications","notifications": page_obj,"page": page_obj,})
 
 def mark_notification(request: HttpRequest,id):
     notification = get_object_or_404(Notification, id=id)
