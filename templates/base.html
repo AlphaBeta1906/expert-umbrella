@@ -77,6 +77,18 @@
                 }
             })
         }
+        
+        function mark_as_read(id){
+            fetch(`/notification/read/${id}`,
+            {
+                method: 'POST',
+                body: {} ,
+                credentials: 'same-origin',
+                headers: {
+                    'X-CSRFToken': '{{csrf_token}}'
+                }
+            })
+        }
       </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 {% load gravatar %}
+{% load notifications_tags %}
     <details class="dropdown">
       <summary>
         {% gravatar user.email 35 %}
@@ -31,12 +32,12 @@
             Create group
           </a>
         </li>
-        {% comment %} <li>
-          <a href="#">
+        <li>
+          <a href="{% url 'post:notification' %}" title="you have {% notifications_unread %} unread notification(s) ">
             <i data-feather="bell"></i>
-            Notification
+            Notification ({% notifications_unread %})
           </a>
-        </li>  {% endcomment %}
+        </li> 
         <li>
           <a href="{% url 'user:logout' %}">
             <i data-feather="log-out" style="color: #ef2929;"></i>
