@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+import notifications.urls
 from .views import about, license, privacy_policy
 
 admin.site.site_header = "Shiorium site administration"
@@ -31,7 +32,8 @@ urlpatterns = [
     path("license/", license, name="license"),
     path("privacypolicy/", privacy_policy, name="privacypolicy"),
     path('captcha/', include('captcha.urls')),
-    # path("inbox/notifications/", include("notifications.urls")),
+    path("inbox/notifications/", include(notifications.urls, namespace='notifications')),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
